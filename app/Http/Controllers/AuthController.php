@@ -61,7 +61,7 @@ class AuthController extends Controller
         if ($user) {
             Auth::login($user);
         }
-        return redirect()->intended('/dashboard');
+        return redirect()->intended()->back();
     }
 
     public function logout()
