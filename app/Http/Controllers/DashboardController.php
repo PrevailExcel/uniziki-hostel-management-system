@@ -42,4 +42,8 @@ class DashboardController extends Controller
         return view('reserve', compact('hostels'));
     }
 
+    public function checkout()
+    {
+        return view('checkout');
+    }
 }

@@ -20,7 +20,7 @@
                             <img class="img-fluid mx-auto img-thumbnail"
                                 src="{{ asset('assets/images/hostel-exterior-1.jpg') }}" style="height: 150px;" />
                             <div class="card-body">
-                                <b>{{ $hostel->floors }}</b> Floors, Type: <b>
+                                <b>{{ $hostel->floors->count() }}</b> Floors, Type: <b>
                                     @if ($hostel->type == true)
                                         Male
                                     @else
@@ -58,14 +58,13 @@
                         <div class="mb-3">
                             <label>Floor</label>
                             <select class="form-select" aria-label="Select Gender" name="floor">
+
                             </select>
                         </div>
                         <div class="mb-3">
                             <label>Room</label>
                             <select class="form-select" aria-label="Select Gender" name="room">
-                                @for ($i = 1; $i < 40; $i++)
-                                    <option>{{ $i }}</option>
-                                @endfor
+
                             </select>
                         </div>
                         <div class="mb-3">
@@ -76,10 +75,11 @@
                             </select>
                         </div>
 
-
+                        <p id="roomPrice"></p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="save_history_or_note" class="btn bg-theme text-white">Make Payment</button>
+                    <button type="button" id="make-payment" disabled
+                        class="btn bg-theme text-white">Make Payment</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -118,13 +118,87 @@
                 url: "hostel/" + id,
                 type: "GET",
                 success: function(hostel) {
-                    $("#hosName").text(hostel.name);
+                    $("#hosName").text(hostel.hostel.name);
+                    let floor = 1;
+                    $('select[name=room]').empty();
+                    $('select[name=floor]').html('');
+                    $('#roomPrice').html('');
+                    $('#make-payment').attr('disabled', 'disabled');
+                    $('select[name=floor]').append('<option selected disabled>Select floor</option>')
+
+                    for (let i = 1; i <= (hostel.floors.length); i++) {
+                        floor = getFloor(i)
+                        $('select[name=floor]').append('<option value="' + hostel.floors[parseInt(i -
+                                1)]
+                            .id + '">' + floor + ' floor</option>')
+                    }
+                },
+                error: function(e) {
+                    console.log(e);
+                }
+            });
+        });
+        $('select[name=floor]').on('change', function() {
+            var floorId = $(this).val();
+            if (floorId) {
+                $.ajax({
+                    url: '/floor/' + floorId,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(rooms) {
+                        if (rooms) {
+                            $('select[name=room]').empty();
+                            $('#roomPrice').html('');
+                            $('#make-payment').attr('disabled', 'disabled');
+                            $('select[name=room]').append(
+                                '<option selected disabled>Select Room</option>');
+                            $.each(rooms, function(key, room) {
+                                $('select[name=room]').append('<option value="' + room.id +
+                                    '">' + room.num + '</option>');
+                            });
+                        } else {
+                            $('select[name=room]').empty();
+                        }
+                    }
+                });
+            } else {
+
+            }
+        });
+        $('select[name=room]').on('change', function() {
+            var roomId = $(this).val();
+            if (roomId) {
+                $.ajax({
+                    url: '/room/' + roomId,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(price) {
+                        if (price) {
+                            $('#roomPrice').html('<span>Price: <b> ₦' + price + '</b></span>');
+                            $('#make-payment').removeAttr('disabled');
+                        }
+                    }
+                });
+            } else {
+
+            }
+        });
+
+        $('.select-room').on('select', function() {
+            let id = $(this).data('id');
+
+            $.ajax({
+                url: "hostel/" + id,
+                type: "GET",
+                success: function(hostel) {
+                    $("#hosName").text(hostel.hostel.name);
                     let floor = 1;
                     $('select[name=floor]').html('');
 
-                    for (let i = 1; i <= hostel.floors; i++) {
+                    for (let i = 1; i <= (hostel.floors.length); i++) {
                         floor = getFloor(i)
-                        $('select[name=floor]').append('<option>' + floor + ' floor</option>')
+                        $('select[name=floor]').append('<option value"' + hostel.floors[parseInt(i - 1)]
+                            .id + '"">' + floor + ' floor</option>')
                     }
                 },
                 error: function(e) {
