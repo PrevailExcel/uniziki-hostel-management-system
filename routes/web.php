@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DropdownController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,4 +34,5 @@ Route::prefix('admin')->middleware(['auth', 'admins'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard',  [DashboardController::class, 'show'])->name('dashboard');
     Route::get('/reserve',  [DashboardController::class, 'reserve'])->name('reserve');
+    Route::get('/hostel/{hostel}',  [DropdownController::class, 'hostel'])->name('hostel');
 });

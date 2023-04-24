@@ -94,11 +94,6 @@
 @section('js')
     <script>
         function getFloor(floor) {
-            if (floor == 1) {
-                return ''
-            } else if(floor == 2) {
-
-            }
             switch (parseInt(floor)) {
                 case 1:
                     return 'Ground';
@@ -130,9 +125,10 @@
                     console.log(hostel)
                     $('.hos-name').text = hostel.name
                     console.log(hostel.name)
-                        for (let floor = 1; floor < hostel.floors; floor++) {
-                            floor = getFloor(floor)
-                            $('select[name=floor]').append('<option>'+floor+'</option>')
+                    let floor = 1;
+                        for (let i = 1; floor <= hostel.floors; i++) {
+                          floor = getFloor(i)
+                            $('select[name=floor]').append('<option>'+floor+' floor</option>')
                             console.log(floor)
                         }
                 },
