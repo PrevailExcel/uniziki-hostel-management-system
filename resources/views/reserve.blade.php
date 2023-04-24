@@ -11,7 +11,7 @@
         <div class="row px-auto mt-5">
             <div class="col-md-8 offset-md-2">
                 <div class="card shadow p-3 mt-5 mx-auto text-dark">
-                    <h3 class="title my-4 pb-2 border-bottom">Reserve Hostel and Bed space</h3>
+                    <h3 class="title my-4 pb-2 border-bottom">Reserve Hostel and bed space</h3>
                     @foreach ($hostels as $hostel)
                         <div class="card p-3 mt-5 mx-auto text-dark">
                             <div class="card-head">
@@ -30,7 +30,7 @@
                                 Campus: <b>Main Ifite Campus</b>
                             </div>
                             <div class="card-footer bg-white text-center justify-content-center">
-                                <button class="btn bg-theme btn-lg text-white select-hostel" id="{{ $hostel->id }}"
+                                <button class="btn bg-theme btn-lg text-white select-hostel" data-id="{{ $hostel->id }}"
                                     data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     Select {{ $hostel->name }}
                                 </button>
@@ -48,7 +48,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Reserve Room and Bed space</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Reserve room and space in <span class="hos-name"></span></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -57,13 +57,13 @@
                         <div class="mb-3">
                             <label>Floor</label>
                             <select class="form-select" aria-label="Select Gender" name="floor">
-                                @for ($i = 1; $i < 4; $i++)
+                                {{-- @for ($i = 1; $i < 4; $i++)
                                     @php
                                         $getFloor = new \App\Http\Controllers\DashboardController();
                                         $floor = $getFloor->floor($i);
                                     @endphp
                                     <option>{{ $floor }} floor</option>
-                                @endfor
+                                @endfor --}}
                             </select>
                         </div>
                         <div class="mb-3">
@@ -83,7 +83,7 @@
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="save_history_or_note" class="btn bg-theme">Make Payment</button>
+                    <button type="button" id="save_history_or_note" class="btn bg-theme text-white">Make Payment</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -93,13 +93,53 @@
 
 @section('js')
     <script>
+        function getFloor(floor) {
+            if (floor == 1) {
+                return ''
+            } else if(floor == 2) {
+
+            }
+            switch (parseInt(floor)) {
+                case 1:
+                    return 'Ground';
+                    break;
+                case 2:
+                    return 'First';
+                    break;
+                case 3:
+                    return 'Second';
+                    break;
+                case 4:
+                    return 'Third';
+                    break;
+                case 5:
+                    return 'Fourth';
+                    break;
+                default:
+                    return 'Gnd';
+                    break;
+            }
+        }
         $('.select-hostel').on('click', function() {
-            console.log('start');
-            fetch('/hostel-details/' + $(this).id)
-                .then((res) => function() {
-                    console.log(res);
-                })
-            console.log(end);
+            let id = $(this).data('id');
+
+            $.ajax({
+                url: "hostel/" + id,
+                type: "GET",
+                success: function(hostel) {
+                    console.log(hostel)
+                    $('.hos-name').text = hostel.name
+                    console.log(hostel.name)
+                        for (let floor = 1; floor < hostel.floors; floor++) {
+                            floor = getFloor(floor)
+                            $('select[name=floor]').append('<option>'+floor+'</option>')
+                            console.log(floor)
+                        }
+                },
+                error: function(e) {
+                    console.log(e);
+                }
+            });
         });
     </script>
 @endsection
