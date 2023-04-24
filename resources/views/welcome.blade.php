@@ -171,7 +171,7 @@
 
             <div class="row py-3 mb-5 g-4">
                 <div class="col bg-light mx-3 p-4 shadow">
-                    <i class="fs-2 mb-3 fa fa-hand-pointer-o text-theme circle-icon"></i>
+                    <i class="fs-2 mb-3 fa fa-hand-pointer-o text-theme-2 circle-icon"></i>
                     <p class="fw-bold">Create account or login to your dashboard</p>
                 </div>
                 <div class="col bg-light mx-3 p-4 shadow">
@@ -179,7 +179,7 @@
                     <p class="fw-bold">Checkout the space you want to book</p>
                 </div>
                 <div class="col bg-light mx-3 p-4 shadow">
-                    <i class="fs-2 mb-3 fa fa-credit-card text-theme circle-icon"></i>
+                    <i class="fs-2 mb-3 fa fa-credit-card text-theme-2 circle-icon"></i>
                     <p class="fw-bold">Make payment with cash or crypto</p>
                 </div>
                 <div class="col bg-light mx-3 p-4 shadow">

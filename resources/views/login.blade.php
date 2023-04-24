@@ -13,7 +13,7 @@
     <title> - Log In</title>
 </head>
 
-<body class="bg-theme-2">
+<body class="bg-theme">
     <!-- login page start-->
     <div class="container">
         <div class="row px-auto mt-5">
@@ -50,7 +50,7 @@
                         <a href="forgot-password" class="py-3 link-dark">Forgot your password?</a>
 
                         <div class="mt-4">
-                            <button type="submit" class="px-3 text-center btn btn-dark border-0 bg-theme-2 btn-block">
+                            <button type="submit" class="px-3 text-center btn btn-dark border-0 bg-theme btn-block">
                                 <span>Log In</span>
                                 <i class="fa fa-check"></i>
                             </button>

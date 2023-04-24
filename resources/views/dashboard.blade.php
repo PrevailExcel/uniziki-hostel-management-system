@@ -18,7 +18,7 @@
 
     <section class="containter-fluid">
         <div class="row gx-2">
-            <div class="col-md-4 mx-auto col-xs-6 mb-2 mt-4 p-4">
+            <div class="col-md-6 mx-auto col-xs-6 mb-2 mt-4 p-4">
                 <div class="row shadow">
                     <div class="col-lg-9 col-md-8 col-sm-8 col-8 p-4 fontsty">
                         <h4>Status</h4>
@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mx-auto col-xs-6 mb-2 mt-4 p-4">
+            <div class="col-md-6 mx-auto col-xs-6 mb-2 mt-4 p-4">
                 <div class="row shadow">
                     <div class="col-lg-9 col-md-8 col-sm-8 col-8 p-4 fontsty">
                         <h4>Room</h4>
@@ -40,44 +40,20 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mx-auto col-xs-6 mb-2 mt-4 p-4">
-                <div class="row shadow">
-                    <div class="col-lg-9 col-md-8 col-sm-8 col-8 p-4 fontsty">
-                        <h4>Bookings</h4>
-                        <h6>567</h6>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-4 col-4 p-3 text-center bg-theme">
-                        <i class="fa circle-icon text-white py-auto fs-3 fw-bold">₦</i>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
     <section class="containter-fluid my-5 text-center">
-        <div class="row gx-2">
-            <div class="col-md-4 mx-auto mx-4 col-xs-6 mb-2 mt-4 p-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8 mx-auto mx-4 col-xs-6 mb-2 mt-4 px-4">
                 <div class="row">
-                    <button class="shadow col-lg-125 col-md-8 col-sm-8 col-8 p-4 fontsty btn btn-primary">
-                        Check out spaces
-                    </button>
-                </div>
-            </div>
-            <div class="col-md-4 mx-auto mx-4 col-xs-6 mb-2 mt-4 p-4">
-                <div class="row">
-                    <button class="shadow col-lg-125 col-md-8 col-sm-8 col-8 p-4 fontsty btn btn-success">
-                        Room management 
-                    </button>
-                </div>
-            </div>
-            <div class="col-md-4 mx-auto mx-4 col-xs-6 mb-2 mt-4 p-4">
-                <div class="row">
-                    <button class="shadow col-lg-125 col-md-8 col-sm-8 col-8 p-4 fontsty btn btn-danger">
-                        Manage Payments
-                    </button>
+                    <a href="{{ route('reserve') }}">
+                        <button class="shadow col-lg-12 col-md-8 col-sm-8 col-8 py-5 fontsty btn bg-theme">
+                            <h2>Reserve Room Now</h2>
+                        </button>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
-
 @endsection

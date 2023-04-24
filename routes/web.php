@@ -32,4 +32,5 @@ Route::prefix('admin')->middleware(['auth', 'admins'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard',  [DashboardController::class, 'show'])->name('dashboard');
+    Route::get('/reserve',  [DashboardController::class, 'reserve'])->name('reserve');
 });
