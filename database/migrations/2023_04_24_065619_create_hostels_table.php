@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('address')->nullable();
             $table->string('image')->nullable();
-            $table->unsignedInteger('floors')->default(1);
             $table->boolean('type')->default(true)->comment('true for male, false for female');
             $table->timestamps();
         });

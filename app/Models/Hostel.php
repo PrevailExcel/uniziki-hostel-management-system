@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Hostel extends Model
 {
     use HasFactory;
+
+    public function floors()
+    {
+        return $this->hasMany(Floor::class);
+    }
 }

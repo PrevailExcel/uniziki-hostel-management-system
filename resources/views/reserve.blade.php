@@ -48,7 +48,8 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Reserve room and space in <span class="hos-name"></span></h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Reserve room and space in <b id="hosName"></b>
+                    </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -57,13 +58,6 @@
                         <div class="mb-3">
                             <label>Floor</label>
                             <select class="form-select" aria-label="Select Gender" name="floor">
-                                {{-- @for ($i = 1; $i < 4; $i++)
-                                    @php
-                                        $getFloor = new \App\Http\Controllers\DashboardController();
-                                        $floor = $getFloor->floor($i);
-                                    @endphp
-                                    <option>{{ $floor }} floor</option>
-                                @endfor --}}
                             </select>
                         </div>
                         <div class="mb-3">
@@ -81,6 +75,8 @@
                                 <option>Crypto Payment</option>
                             </select>
                         </div>
+
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="save_history_or_note" class="btn bg-theme text-white">Make Payment</button>
@@ -122,15 +118,14 @@
                 url: "hostel/" + id,
                 type: "GET",
                 success: function(hostel) {
-                    console.log(hostel)
-                    $('.hos-name').text = hostel.name
-                    console.log(hostel.name)
+                    $("#hosName").text(hostel.name);
                     let floor = 1;
-                        for (let i = 1; floor <= hostel.floors; i++) {
-                          floor = getFloor(i)
-                            $('select[name=floor]').append('<option>'+floor+' floor</option>')
-                            console.log(floor)
-                        }
+                    $('select[name=floor]').html('');
+
+                    for (let i = 1; i <= hostel.floors; i++) {
+                        floor = getFloor(i)
+                        $('select[name=floor]').append('<option>' + floor + ' floor</option>')
+                    }
                 },
                 error: function(e) {
                     console.log(e);
