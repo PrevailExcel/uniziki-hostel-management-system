@@ -14,6 +14,11 @@ class AuthController extends Controller
         return view('login');
     }
 
+    public function showAdmin()
+    {
+        return view('admin.login');
+    }
+
     public function showRegister()
     {
         return view('register');
@@ -30,6 +35,19 @@ class AuthController extends Controller
             return redirect()->intended('/dashboard');
         }
         return redirect()->back()->with('alert', 'Reg number and Password Not Matched');
+    }
+
+    public function authenticateAdmin(Request $request)
+    {
+        $this->validate($request, [
+            'email'   => 'required',
+            'password' => 'required'
+        ]);
+
+        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
+            return redirect()->intended('/admin');
+        }
+        return redirect()->back()->with('alert', 'Email and Password Not Matched');
     }
 
     public function createUser(Request $request)

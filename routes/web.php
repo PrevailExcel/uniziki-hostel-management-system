@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DropdownController;
@@ -20,6 +21,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('admin/login', [AuthController::class, 'showAdmin'])->name('admin.login')->middleware(['guest']);
+Route::post('admin/login', [AuthController::class, 'authenticateAdmin']);
+
+
 Route::get('login', [AuthController::class, 'show'])->name('login')->middleware(['guest']);
 Route::post('login', [AuthController::class, 'authenticate']);
 Route::get('register', [AuthController::class, 'showRegister'])->name('register');
@@ -27,8 +32,9 @@ Route::post('register', [AuthController::class, 'createUser']);
 
 Route::get('logout', [AuthController::class, 'show'])->name('logout')->middleware(['auth']);
 
-Route::prefix('admin')->middleware(['auth', 'admins'])->group(function () {
-    Route::get('/dashboard',  [DashboardController::class, 'show'])->name('admin.dashboard');
+Route::prefix('admin')->middleware(['admins'])->group(function () {
+    Route::get('/',  [AdminController::class, 'show'])->name('admin.dashboard');
+    Route::get('/hostels',  [AdminController::class, 'hostels'])->name('admin.hostels');
 });
 
 Route::middleware(['auth'])->group(function () {

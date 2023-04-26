@@ -9,31 +9,33 @@
 
     <div class="container">
         <div class="row px-auto mt-5">
-            <div class="col-md-8 offset-md-2">
-                <div class="card shadow p-3 mt-5 mx-auto text-dark">
-                    <h3 class="title my-4 pb-2 border-bottom">Reserve Hostel and bed space</h3>
+            <div class="card shadow p-3 mt-5 mx-auto text-dark">
+                <h3 class="title my-4 pb-2 border-bottom">Reserve Hostel and bed space</h3>
+                <div class="row">
                     @foreach ($hostels as $hostel)
-                        <div class="card p-3 mt-5 mx-auto text-dark">
-                            <div class="card-head">
-                                <h4>{{ $hostel->name }}</h4>
-                            </div>
-                            <img class="img-fluid mx-auto img-thumbnail"
-                                src="{{ asset('assets/images/hostel-exterior-1.jpg') }}" style="height: 150px;" />
-                            <div class="card-body">
-                                <b>{{ $hostel->floors->count() }}</b> Floors, Type: <b>
-                                    @if ($hostel->type == true)
-                                        Male
-                                    @else
-                                        Female
-                                    @endif
-                                </b>,
-                                Campus: <b>Main Ifite Campus</b>
-                            </div>
-                            <div class="card-footer bg-white text-center justify-content-center">
-                                <button class="btn bg-theme btn-lg text-white select-hostel" data-id="{{ $hostel->id }}"
-                                    data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    Select {{ $hostel->name }}
-                                </button>
+                        <div class="col-md-4">
+                            <div class="card p-3 mt-5 mx-auto text-dark">
+                                <div class="card-head">
+                                    <h4>{{ $hostel->name }}</h4>
+                                </div>
+                                <img class="img-fluid mx-auto img-thumbnail"
+                                    src="{{ asset('assets/images/hostel-exterior-1.jpg') }}" style="height: 150px;" />
+                                <div class="card-body">
+                                    <b>{{ $hostel->floors->count() }}</b> Floors, Type: <b>
+                                        @if ($hostel->type == true)
+                                            Male
+                                        @else
+                                            Female
+                                        @endif
+                                    </b>,
+                                    Campus: <b>Main Ifite Campus</b>
+                                </div>
+                                <div class="card-footer bg-white text-center justify-content-center">
+                                    <button class="btn bg-theme btn-lg text-white select-hostel"
+                                        data-id="{{ $hostel->id }}" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        Select {{ $hostel->name }}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     @endforeach
@@ -70,16 +72,15 @@
                         <div class="mb-3">
                             <label>Payment Option</label>
                             <select class="form-select" aria-label="Select Gender" name="type">
-                                <option>Card</option>
-                                <option>Crypto Payment</option>
+                                <option value="card">Card</option>
+                                <option value="crypto">Crypto Payment</option>
                             </select>
                         </div>
 
                         <p id="roomPrice"></p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="make-payment" disabled
-                        class="btn bg-theme text-white">Make Payment</button>
+                    <button type="button" id="make-payment" disabled class="btn bg-theme text-white">Make Payment</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -183,7 +184,6 @@
 
             }
         });
-
         $('.select-room').on('select', function() {
             let id = $(this).data('id');
 
@@ -205,6 +205,11 @@
                     console.log(e);
                 }
             });
+        });
+        $('#make-payment').on('click', function() {
+            let type = $('select[name=type]').val();
+            let room = $('select[name=room]').val();
+            window.location.assign('checkout?type=' + type + '&room=' + room);
         });
     </script>
 @endsection

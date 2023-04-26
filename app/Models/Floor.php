@@ -18,4 +18,5 @@ class Floor extends Model
     {
         return $this->belongsTo(Hostel::class);
     }
+
 }

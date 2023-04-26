@@ -17,10 +17,10 @@ class AdminsOnly
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->type == 0) {
+        if (Auth::guard('admin')->user()) {
             return $next($request);
         } else {
-            return redirect()->route('user');
+            return redirect()->route('dashboard');
         }
 
         return $next($request);

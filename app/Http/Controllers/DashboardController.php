@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hostel;
+use App\Models\Room;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -44,6 +45,8 @@ class DashboardController extends Controller
 
     public function checkout()
     {
-        return view('checkout');
+        $type = request()->type ?? 'card';
+        $room = Room::findOrFail(request()->room);
+        return view('checkout', compact('type', 'room'));
     }
 }
