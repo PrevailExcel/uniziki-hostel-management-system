@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {
     use HasFactory;
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
+
+    public function space()
+    {
+        return $this->belongsTo(Space::class);
+    }
 }

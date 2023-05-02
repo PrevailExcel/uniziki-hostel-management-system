@@ -41,6 +41,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard',  [DashboardController::class, 'show'])->name('dashboard');
     Route::get('/reserve',  [DashboardController::class, 'reserve'])->name('reserve');
     Route::get('/checkout',  [DashboardController::class, 'checkout'])->name('checkout');
+    Route::post('/checkout/pop',  [DashboardController::class, 'pop'])->name('checkout.pop');
+    Route::post('/checkout/card',  [DashboardController::class, 'card'])->name('checkout.card');
+    Route::get('/myroom',  [DashboardController::class, 'myRoom'])->name('my.room');
     Route::get('/hostel/{hostel}',  [DropdownController::class, 'hostel'])->name('hostel');
     Route::get('/floor/{floor}',  [DropdownController::class, 'floor'])->name('floor');
     Route::get('/room/{room}',  [DropdownController::class, 'room'])->name('room');

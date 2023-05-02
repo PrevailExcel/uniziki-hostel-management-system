@@ -47,11 +47,19 @@
         <div class="row justify-content-center">
             <div class="col-md-8 mx-auto mx-4 col-xs-6 mb-2 mt-4 px-4">
                 <div class="row">
-                    <a href="{{ route('reserve') }}">
-                        <button class="shadow col-lg-12 col-md-8 col-sm-8 col-8 py-5 fontsty btn bg-theme">
-                            <h2>Reserve Room Now</h2>
-                        </button>
-                    </a>
+                    @if (auth()->user()->booking)
+                        <a href="{{ route('my.room') }}">
+                            <button class="shadow col-lg-12 col-md-8 col-sm-8 col-8 py-5 fontsty btn bg-theme-2">
+                                <h2>Room Details</h2>
+                            </button>
+                        </a>
+                    @else
+                        <a href="{{ route('reserve') }}">
+                            <button class="shadow col-lg-12 col-md-8 col-sm-8 col-8 py-5 fontsty btn bg-theme">
+                                <h2>Reserve Room Now</h2>
+                            </button>
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>

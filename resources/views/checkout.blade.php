@@ -13,8 +13,9 @@
 
                 <div class="row g-5">
                     @if ($type == 'card')
-                        <form class="needs-validation" novalidate method="POST" action="{{ 'book' }}">
+                        <form class="needs-validation" novalidate method="POST" action="{{ route('checkout.card') }}">
                             @csrf
+                            <input type="hidden" name="room" value="{{ $room->id }}">
 
                             <hr class="my-4">
 
@@ -70,7 +71,7 @@
                             <hr class="my-4">
 
                             <button class="w-100 btn btn-primary bg-theme border-0 btn-lg" type="submit">
-                                Pay ₦{{number_format($room->price)}}
+                                Pay ₦{{ number_format($room->price) }}
                             </button>
                         </form>
                     @else
@@ -83,7 +84,7 @@
                                 <div class="card-body">
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-start">
                                         <input class="form-control" readonly
-                                            value="0xfc2d76ec3a7f573fa73bbye6f3tfw6f5653wf367367" />
+                                            value="0x292f04a44506c2fd49Bac032E1ca148C35A478c8" />
                                         <button class="btn bg-theme">Copy</button>
                                     </div>
 
@@ -102,16 +103,20 @@
                 <h6>room: <b>Room {{ $room->num }}</b></h6>
                 <h6>Duration: <b>1 Academic Year</b></h6>
                 <h6>Payment Type: <b class="capitalize">{{ $type }}</b></h6>
-                <h6>Price in Naira: <b>₦{{number_format($room->price)}}</b></h6>
+                <h6>Price in Naira: <b>₦{{ number_format($room->price) }}</b></h6>
 
                 @if ($type == 'crypto')
                     <div class="mt-5">
                         <div class="row">
                             <h6>After you've completed payment, upload ref here.</h6>
-                            <form class="form-group">
-                            <input class="form-control file mb-3" type="file" accept=".pdf, .jpeg, .jpg, .png"
-                                placeholder="Upload POP">
-                            <button type="submit" class="btn bg-theme-2">Upload POP</button>
+                            <form class="form-group" method="POST" action="{{ route('checkout.pop') }}"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" name="room" value="{{ $room->id }}">
+
+                                <input class="form-control file mb-3" name="image" type="file"
+                                    accept=".pdf, .jpeg, .jpg, .png" placeholder="Upload POP" required>
+                                <button type="submit" class="btn bg-theme-2">Upload POP</button>
                             </form>
                         </div>
                     </div>

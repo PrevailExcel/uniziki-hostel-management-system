@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('space_id')->nullable();
             $table->string('ref');
             $table->string('type')->comment("'cash' for cash, 'crypto' for crypto");
+            $table->string('pop')->nullable();
             $table->boolean('confirmed')->default(false);
             $table->timestamps();
         });
